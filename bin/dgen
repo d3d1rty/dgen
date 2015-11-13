@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+begin
+	require 'dgen'
+rescue LoadError
+	require 'rubygems'
+	require 'dgen'
+end
