@@ -1,33 +1,43 @@
 # PassGen Class
+# Copyright 2015 Richard Davis GPL v3
 class PassGen
-  # gets constraint information
-  def initialize(n_words, p_length)
-    # @n_words set number of words. recommended 6 word minimum
-    # @p_length set passphrase length. recommended > 17 (including spaces)
-    # hold words in array
-  end
-
   # creates array of random numbers
-  def roll_num
-    # randomly generate 5 single digit numbers
-    # squeeze into one number
-    # return number
+  def roll_nums
+    numbers = []
+    5.times do
+      numbers.push(rand(1..6))
+    end
+    num = numbers.join('')
+    num
   end
 
   # chooses words from wordlist
-  def find_word(file)
+  def find_word(file, number)
     # scan file for number
-    # select word for corresponding number
-    # verify word meets constraints
-    # return word
+    File.foreach(file) do |line|
+      num = line.slice(0, 5)
+      @word = line.slice(6..-2)
+      break if num == number
+    end
+    @word
   end
 
   # makes the passphrase from the chosen words
   def make_phrase(words)
-    # read values from array
-    # store as string
-    # return pass phrase
+    phrase = words.join(' ')
+    phrase
   end
 
-  private :n_words, :p_length
+  # generates and returns the pass phrase
+  def generate_phrase(n_words, p_length, file)
+    loop do
+      words = []
+      n_words.times do
+        words.push(find_word(file, roll_nums))
+      end
+      @pass_phrase = make_phrase(words)
+      break unless @pass_phrase.length < p_length
+    end
+    @pass_phrase
+  end
 end
