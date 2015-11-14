@@ -1,11 +1,14 @@
 # PassGen Class
 # Copyright 2015 Richard Davis GPL v3
+require 'securerandom'
+
+# creates a generator object
 class PassGen
   # creates array of random numbers
   def roll_nums
     numbers = []
     5.times do
-      numbers.push(rand(1..6))
+      numbers.push(SecureRandom.random_number(6) + 1)
     end
     num = numbers.join('')
     num

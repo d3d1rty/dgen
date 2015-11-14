@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.files         = ['lib/dgen.rb',
                      'lib/dgen/base.rb',
                      'lib/dgen/passgen.rb',
-                     'lib/dgen/word-list.txt']
+                     'lib/assets/word-list.txt']
   s.executables   = ['dgen']
   s.test_files    = ['test/test_dgen.rb']
   s.require_path  = ['lib']
