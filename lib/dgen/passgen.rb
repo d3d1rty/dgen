@@ -1,10 +1,21 @@
-# PassGen Class
+##
+# PassGen Module
+#
+# This module provides the methods that compose the password generator.
+#
+# The algorithm used to generate passwords is the Diceware method, developed
+# by Arnold Reinhold.
+#
 # Copyright 2015 Richard Davis GPL v3
 require 'securerandom'
 
-# creates a generator mixin
+##
+# Provides the password generation module for use as a mixin.
+#
 module PassGen
-  # creates array of random numbers
+  ##
+  # Creates an array of random numbers generated securely.
+  #
   def roll_nums
     numbers = []
     5.times do
@@ -14,7 +25,21 @@ module PassGen
     num
   end
 
-  # chooses words from wordlist
+  ##
+  # Opens and returns the file containing the diceware word list.
+  #
+  def open_wordlist
+    path = File.expand_path(File.join(File.dirname(__FILE__),
+                                      '..',
+                                      'assets',
+                                      'word-list.txt'))
+    wordlist = File.new(path, 'r')
+    wordlist
+  end
+
+  ##
+  # Chooses words from the diceware word list for the passphrase.
+  #
   def find_word(file, number)
     File.foreach(file) do |line|
       num = line.slice(0, 5)
@@ -24,58 +49,45 @@ module PassGen
     @word
   end
 
-  # makes the passphrase from the chosen words
-  def make_phrase(words)
-    phrase = words.join(' ')
-    phrase
-  end
-
-  # determines entropy for a given passphrase
-  def entropy(phrase)
-  end
-
-  # generates and returns the passphrase
-  def generate_phrase(n_words, p_length, file)
+  ##
+  # Generates and returns the passphrase.
+  #
+  def make_phrase(n_words, p_length, file)
     loop do
       words = []
       n_words.times do
         words.push(find_word(file, roll_nums))
       end
-      @pass_phrase = make_phrase(words)
+      @pass_phrase = words.join(' ')
       break unless @pass_phrase.length < p_length
     end
     @pass_phrase
   end
 
-  # produces a single passphrase
+  ##
+  # Produces and displays a single passphrase.
+  #
   def single(n_words, p_length)
-    path = File.expand_path(File.join(File.dirname(__FILE__),
-                                      '..',
-                                      'assets',
-                                      'word-list.txt'))
-    f = File.new(path, 'r')
-    phrase = generate_phrase(n_words, p_length, f)
+    f = open_wordlist
+    phrase = make_phrase(n_words, p_length, f)
     puts "Passphrase with spaces:    '#{phrase}'"
     puts "Passphrase without spaces: '#{phrase.delete(' ')}'"
-    puts "Calculated entropy: #{entropy(phrase)}"
     f.close
     phrase
   end
 
-  # generates multiple passphrases
+  ##
+  # Produces and displays multiple passphrases.
+  #
   def batch(n_words, p_length)
+    f = open_wordlist
+    phrase = []
     print 'How many passphrases to generate? => '
     num_pass = gets.chomp.to_i
-    path = File.expand_path(File.join(File.dirname(__FILE__),
-                                      '..',
-                                      'assets',
-                                      'word-list.txt'))
-    f = File.new(path, 'r')
     num_pass.times do |i|
-      phrase.push(generate_phrase(n_words, p_length, f))
+      phrase.push(make_phrase(n_words, p_length, f))
       puts "Passphrase with spaces:    '#{phrase[i]}'"
       puts "Passphrase without spaces: '#{phrase[i].delete(' ')}'"
-      puts "Calculated entropy: #{entropy(phrase[i])}"
     end
     f.close
     phrase

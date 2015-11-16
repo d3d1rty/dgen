@@ -1,7 +1,10 @@
 ##
+# Base Script
+#
 # This script handles the behavior of the program based on the options
 # provided by the user.
-
+#
+# Copyright 2015 Richard Davis GPL v3
 require 'optparse'
 include 'dgen/passgen'
 include 'dgen/outputfile'
@@ -52,13 +55,13 @@ if options[:single]
   single_pass = single(n_words, p_length)
   entropy(single_pass)
   puts 'Save this passphrase in an encrypted file? (Y/N) => '
-  save = gets.chomp!
+  save = gets.chomp
   exit unless save.upcase == 'Y'
   save_pass(single_pass)
 elsif options[:batch]
   batch_pass = batch(n_words, p_length)
   puts 'Save the passphrases in an encrypted file? (Y/N) => '
-  save = gets.chomp!
+  save = gets.chomp
   exit unless save.upcase == 'Y'
   save_pass(batch_pass)
 else

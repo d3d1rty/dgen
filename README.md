@@ -7,7 +7,7 @@ Check out this XKCD comic to get a better idea: https://xkcd.com/936/
 Read the official diceware page for a more detailed explanation of diceware and how to use the method for generating passphrases securely: http://world.std.com/~reinhold/diceware.html
 
 ##What it Does
-This program requires only minimal user interaction. You specify the number of words that you want in the passphrase and the minimum length of the passphrase, and the program will generate a secure diceware passphrase that meets those requirements. It will display this passphrase to you in the terminal, although future releases will include increased command-line functionality, the ability to write it directly to a file, and more.
+This program requires only minimal user interaction. You specify the number of words that you want in the passphrase and the minimum length of the passphrase, and the program will generate a secure diceware passphrase that meets those requirements. It will display this passphrase to you in the terminal and allow you to save it to an encrypted output file if you so choose. Additionally, it will decrypt previously saved output file and display the passphrases that are contained.
 
 ##Installation
 To install from rubygems, execute:
@@ -20,29 +20,29 @@ Alternatively, you could build from source:
 git clone https://github.com/d3d1rty/dgen.git
 cd dgen
 gem build dgen.gemspec
-gem install ./dgen-0.2.0.gem
+gem install ./dgen-0.3.0.gem
 ```
 
 ##Usage
 * Execute command `dgen -h` for options
-* Execute command `dgen -i` for interactive mode
-* Enter the number of words to use in the passphrase
+* Execute command `dgen -s` to generate a single passphrase
+* Execute command `dgen -b` to generate multiple passphrases
+* Enter the number of words to use in the passphrase(s)
   * The recommended minimum is 6 words
 * Enter the minimum number of characters to use in the passphrase
   * The recommended minimum is 17 characters
-* The program will display the generated passphrase
-  * Write it down once
-  * Commit it to memory
-  * Destroy the paper copy
+* The program will display the generated passphrase at ehich point...
+  * You can:
+    * Write it down once
+    * Commit it to memory
+    * Destroy the paper copy
+  * Or (recommended):
+    * Allow the program to save the generated passphrases to an encrypted file.
+* To open a previously saved output file, execute command `dgen -o FILENAME`
 
 ##TODO
-* Write Rdoc's
-* Code to generate and output (multiple) passphrases to a file
-  * Allow user to specify path to file
-  * Code to generate multiple passphrases
-  * Code to encrypt the output file
-* Include option for single passphrase use with output to screen (current functionality)
-* Include switches to allow user to set number of words and length of passphrase as arguments
+* Write tests for OutputFile module
+* Code OutputFile module
 
 ##Dependencies
 Ruby 2.0 or higher
