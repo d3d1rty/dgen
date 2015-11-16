@@ -3,7 +3,7 @@
 require 'crypt'
 
 # creates a crypto mixin
-module Crypto
+module OutputFile
   # encrypts a file
   def encrypt(file)
   end
@@ -14,5 +14,9 @@ module Crypto
 
   # saves passphrase(s) to a file
   def save_pass(pass, file)
+  end
+
+  # opens a previously saved output file
+  def open_ofile(file)
   end
 end

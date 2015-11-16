@@ -57,6 +57,7 @@ module PassGen
     phrase = generate_phrase(n_words, p_length, f)
     puts "Passphrase with spaces:    '#{phrase}'"
     puts "Passphrase without spaces: '#{phrase.delete(' ')}'"
+    puts "Calculated entropy: #{entropy(phrase)}"
     f.close
     phrase
   end
@@ -74,6 +75,7 @@ module PassGen
       phrase.push(generate_phrase(n_words, p_length, f))
       puts "Passphrase with spaces:    '#{phrase[i]}'"
       puts "Passphrase without spaces: '#{phrase[i].delete(' ')}'"
+      puts "Calculated entropy: #{entropy(phrase[i])}"
     end
     f.close
     phrase
