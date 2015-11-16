@@ -6,8 +6,8 @@
 #
 # Copyright 2015 Richard Davis GPL v3
 require 'optparse'
-include 'dgen/passgen'
-include 'dgen/outputfile'
+require 'dgen/passgen.rb'
+require 'dgen/outputfile.rb'
 
 options = {}
 
@@ -52,18 +52,17 @@ print 'Length of passphrase (recommended minimum is 17 characters) => '
 p_length = gets.chomp.to_i
 
 if options[:single]
-  single_pass = single(n_words, p_length)
-  entropy(single_pass)
+  single_pass = PassGen.single(n_words, p_length)
   puts 'Save this passphrase in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
-  save_pass(single_pass)
+  OutputFile.save_pass(single_pass)
 elsif options[:batch]
-  batch_pass = batch(n_words, p_length)
+  batch_pass = PassGen.batch(n_words, p_length)
   puts 'Save the passphrases in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
-  save_pass(batch_pass)
+  OutputFile.save_pass(batch_pass)
 else
   puts 'You did not enter a valid option. Try --help.'
 end
