@@ -16,7 +16,7 @@ module OutputFile
   ##
   # Encrypts a given passphrase.
   #
-  def encrypt(phrase, key)
+  def self.encrypt(phrase, key)
     blowfish = Crypt::Blowfish.new(key)
     e_phrase = blowfish.encrypt_block(phrase)
     e_phrase
@@ -25,23 +25,37 @@ module OutputFile
   ##
   # Decrypts a given passphrase.
   #
-  def decrypt(e_phrase, key)
+  def self.decrypt(e_phrase, key)
     blowfish = Crypt::Blowfish.new(key)
     phrase = blowfish.decrypt_block(e_phrase)
     phrase
   end
 
   ##
-  # Saves passphrase(s) to a file.
+  # Saves passphrase to a file.
   #
-  def save_pass(phrase)
+  def self.save_pass(phrase)
     print 'Enter name for output file => '
     o_file = gets.chomp
     f = File.open("#{o_file}", 'w+')
     print 'Enter a key for encryption => '
     key = gets.chomp
-    phrase.each do
-      e_phrase = encrypt(phrase, key)
+    e_phrase = encrypt(phrase, key)
+    f.puts e_phrase
+    f.close
+  end
+
+  ##
+  # Saves passphrases to a file.
+  #
+  def self.save_batch(phrase)
+    print 'Enter name for output file => '
+    o_file = gets.chomp
+    f = File.open("#{o_file}", 'w+')
+    print 'Enter a key for encryption => '
+    key = gets.chomp
+    phrase.each do |p|
+      e_phrase = encrypt(p, key)
       f.puts e_phrase
     end
     f.close
@@ -50,15 +64,12 @@ module OutputFile
   ##
   # Opens a previously saved output file for reading.
   #
-  def open_ofile(file)
+  def self.open_ofile(file)
     print 'Enter a key for decryption => '
     key = gets.chomp
-    f = File.new("#{file}", 'r')
-    f.each_line do
-      e_phrase = f.readline
-      phrase = decrypt(e_phrase, key)
+    File.foreach(file) do |l|
+      phrase = decrypt(l, key)
       puts "Decrypted passphrase: '#{phrase}'"
     end
-    f.close
   end
 end

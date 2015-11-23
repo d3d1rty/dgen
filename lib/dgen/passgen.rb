@@ -16,7 +16,7 @@ module PassGen
   ##
   # Creates an array of random numbers generated securely.
   #
-  def roll_nums
+  def self.roll_nums
     numbers = []
     5.times do
       numbers.push(SecureRandom.random_number(6) + 1)
@@ -28,7 +28,7 @@ module PassGen
   ##
   # Opens and returns the file containing the diceware word list.
   #
-  def open_wordlist
+  def self.open_wordlist
     path = File.expand_path(File.join(File.dirname(__FILE__),
                                       '..',
                                       'assets',
@@ -40,7 +40,7 @@ module PassGen
   ##
   # Chooses words from the diceware word list for the passphrase.
   #
-  def find_word(file, number)
+  def self.find_word(file, number)
     File.foreach(file) do |line|
       num = line.slice(0, 5)
       @word = line.slice(6..-2)
@@ -52,7 +52,7 @@ module PassGen
   ##
   # Generates and returns the passphrase.
   #
-  def make_phrase(n_words, p_length, file)
+  def self.make_phrase(n_words, p_length, file)
     loop do
       words = []
       n_words.times do
@@ -67,7 +67,7 @@ module PassGen
   ##
   # Produces and displays a single passphrase.
   #
-  def single(n_words, p_length)
+  def self.single(n_words, p_length)
     f = open_wordlist
     phrase = make_phrase(n_words, p_length, f)
     puts "Passphrase with spaces:    '#{phrase}'"
@@ -79,7 +79,7 @@ module PassGen
   ##
   # Produces and displays multiple passphrases.
   #
-  def batch(n_words, p_length)
+  def self.batch(n_words, p_length)
     f = open_wordlist
     phrase = []
     print 'How many passphrases to generate? => '

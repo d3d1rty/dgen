@@ -22,8 +22,9 @@ optparse = OptionParser.new do |opts|
     options[:batch] = true
   end
 
-  opts.on('-o', '--open FILE', 'Opens previously encrypted output file') do
+  opts.on('-o', '--open file', 'Opens encrypted output file') do |file|
     options[:open] = true
+    options[:file] = file
   end
 
   opts.on('-h', '--help', 'Display this screen') do
@@ -34,16 +35,10 @@ end
 
 optparse.parse!
 
-file = ARGV[0]
-
+puts options[:file]
 if options[:open]
-  begin
-    open_ofile(file)
-    exit
-  rescue
-    puts 'Unable to open file.'
-    exit
-  end
+  OutputFile.open_ofile(options[:file])
+  exit
 end
 
 print 'Number of words for phrase (recommended minimum is 6 words) => '
@@ -62,7 +57,7 @@ elsif options[:batch]
   puts 'Save the passphrases in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
-  OutputFile.save_pass(batch_pass)
+  OutputFile.save_batch(batch_pass)
 else
   puts 'You did not enter a valid option. Try --help.'
 end
