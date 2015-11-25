@@ -1,16 +1,14 @@
 ##
 # PassGen Module
 #
-# This module provides the methods that compose the password generator.
-#
-# The algorithm used to generate passwords is the Diceware method, developed
-# by Arnold Reinhold.
-#
 # Copyright 2015 Richard Davis GPL v3
 require 'securerandom'
 
 ##
-# Provides the password generation module for use as a mixin.
+# This module provides the methods that compose the password generator.
+#
+# The algorithm used to generate passwords is the Diceware method, developed
+# by Arnold Reinhold.
 #
 module PassGen
   ##

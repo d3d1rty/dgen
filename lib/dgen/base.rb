@@ -48,6 +48,9 @@ if options[:open]
     puts 'An error occurred while trying to open the file.'
     exit
   end
+elsif options.empty?
+  puts 'You did not enter a valid option. Try --help.'
+  exit
 end
 
 print 'Number of words for phrase (recommended minimum is 6 words) => '
@@ -77,6 +80,4 @@ elsif options[:batch]
     puts 'Unable to save passphrases to output file.'
     exit
   end
-else
-  puts 'You did not enter a valid option. Try --help.'
 end
