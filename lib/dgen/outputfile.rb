@@ -18,7 +18,7 @@ module OutputFile
   #
   def self.encrypt(phrase, key)
     blowfish = Crypt::Blowfish.new(key)
-    e_phrase = blowfish.encrypt_block(phrase)
+    e_phrase = blowfish.encrypt_string(phrase)
     e_phrase
   end
 
@@ -27,7 +27,7 @@ module OutputFile
   #
   def self.decrypt(e_phrase, key)
     blowfish = Crypt::Blowfish.new(key)
-    phrase = blowfish.decrypt_block(e_phrase)
+    phrase = blowfish.decrypt_string(e_phrase)
     phrase
   end
 
@@ -68,7 +68,8 @@ module OutputFile
     print 'Enter a key for decryption => '
     key = gets.chomp
     File.foreach(file) do |l|
-      phrase = decrypt(l, key)
+      e_phrase = l.chomp
+      phrase = decrypt(e_phrase, key)
       puts "Decrypted passphrase: '#{phrase}'"
     end
   end

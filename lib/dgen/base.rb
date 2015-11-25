@@ -9,6 +9,11 @@ require 'optparse'
 require 'dgen/passgen.rb'
 require 'dgen/outputfile.rb'
 
+trap('INT') do
+  puts 'Terminating...'
+  exit
+end
+
 options = {}
 
 optparse = OptionParser.new do |opts|
@@ -35,10 +40,14 @@ end
 
 optparse.parse!
 
-puts options[:file]
 if options[:open]
-  OutputFile.open_ofile(options[:file])
-  exit
+  begin
+    OutputFile.open_ofile(options[:file])
+    exit
+  rescue
+    puts 'An error occurred while trying to open the file.'
+    exit
+  end
 end
 
 print 'Number of words for phrase (recommended minimum is 6 words) => '
@@ -51,13 +60,23 @@ if options[:single]
   puts 'Save this passphrase in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
-  OutputFile.save_pass(single_pass)
+  begin
+    OutputFile.save_pass(single_pass)
+  rescue
+    puts 'Unable to save passphrase to output file.'
+    exit
+  end
 elsif options[:batch]
   batch_pass = PassGen.batch(n_words, p_length)
   puts 'Save the passphrases in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
-  OutputFile.save_batch(batch_pass)
+  begin
+    OutputFile.save_batch(batch_pass)
+  rescue
+    puts 'Unable to save passphrases to output file.'
+    exit
+  end
 else
   puts 'You did not enter a valid option. Try --help.'
 end

@@ -31,7 +31,7 @@ gem install ./dgen-0.3.0.gem
   * The recommended minimum is 6 words
 * Enter the minimum number of characters to use in the passphrase
   * The recommended minimum is 17 characters
-* The program will display the generated passphrase at ehich point...
+* The program will display the generated passphrase at which point...
   * You can:
     * Write it down once
     * Commit it to memory
@@ -39,10 +39,11 @@ gem install ./dgen-0.3.0.gem
   * Or (recommended):
     * Allow the program to save the generated passphrases to an encrypted file.
 * To open a previously saved output file, execute command `dgen -o FILENAME`
+    * Provide the key for encryption
+    * The program will read the file, decrypt the passphrases, and display them to the screen. The contents of the file will remain encrypted.
 
 ##TODO
 * Write tests for OutputFile module
-* Code OutputFile module
 
 ##Dependencies
 Ruby 2.0 or higher

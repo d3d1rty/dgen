@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.executables   = ['dgen']
   s.test_files    = ['test/test_dgen.rb']
   s.require_path  = ['lib']
-  s.add_runtime_dependency 'crypt', '~> 2.2.1'
+  s.add_runtime_dependency 'crypt', '~> 2.2', '>= 2.2.1'
 end
