@@ -20,7 +20,7 @@ Alternatively, you could build from source:
 git clone https://github.com/d3d1rty/dgen.git
 cd dgen
 gem build dgen.gemspec
-gem install ./dgen-0.3.0.gem
+gem install ./dgen-0.3.1.gem
 ```
 
 ##Usage
