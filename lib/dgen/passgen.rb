@@ -68,8 +68,7 @@ module PassGen
   def self.single(n_words, p_length)
     f = open_wordlist
     phrase = make_phrase(n_words, p_length, f)
-    puts "Passphrase with spaces:    '#{phrase}'"
-    puts "Passphrase without spaces: '#{phrase.delete(' ')}'"
+    puts "Passphrase:        '#{phrase}'"
     f.close
     phrase
   end
@@ -84,8 +83,7 @@ module PassGen
     num_pass = gets.chomp.to_i
     num_pass.times do |i|
       phrase.push(make_phrase(n_words, p_length, f))
-      puts "Passphrase with spaces:    '#{phrase[i]}'"
-      puts "Passphrase without spaces: '#{phrase[i].delete(' ')}'"
+      puts "Passphrase:        '#{phrase[i]}'"
     end
     f.close
     phrase

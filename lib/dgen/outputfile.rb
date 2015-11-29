@@ -12,21 +12,20 @@ require 'crypt/blowfish'
 #
 module OutputFile
   ##
-  # Encrypts a given passphrase.
+  # Encrypts a plaintext file using blowfish encryption.
   #
-  def self.encrypt(phrase, key)
-    blowfish = Crypt::Blowfish.new(key)
-    e_phrase = blowfish.encrypt_string(phrase)
-    e_phrase
+  def self.encrypt(file, key)
+    bf = Crypt::Blowfish.new(key)
+    bf.encrypt_file("plain_#{file}", "#{file}")
+    File.delete("plain_#{file}")
   end
 
   ##
-  # Decrypts a given passphrase.
+  # Decrypts a blowfish encrypted file.
   #
-  def self.decrypt(e_phrase, key)
-    blowfish = Crypt::Blowfish.new(key)
-    phrase = blowfish.decrypt_string(e_phrase)
-    phrase
+  def self.decrypt(file, key)
+    bf = Crypt::Blowfish.new(key)
+    bf.decrypt_file("#{file}", "decrypted_#{file}")
   end
 
   ##
@@ -35,12 +34,12 @@ module OutputFile
   def self.save_pass(phrase)
     print 'Enter name for output file => '
     o_file = gets.chomp
-    f = File.open("#{o_file}", 'w+')
     print 'Enter a key for encryption => '
     key = gets.chomp
-    e_phrase = encrypt(phrase, key)
-    f.puts e_phrase
+    f = File.open("plain_#{o_file}", 'w+')
+    f.puts phrase
     f.close
+    encrypt(o_file, key)
   end
 
   ##
@@ -49,14 +48,14 @@ module OutputFile
   def self.save_batch(phrase)
     print 'Enter name for output file => '
     o_file = gets.chomp
-    f = File.open("#{o_file}", 'w+')
     print 'Enter a key for encryption => '
     key = gets.chomp
+    f = File.open("plain_#{o_file}", 'w+')
     phrase.each do |p|
-      e_phrase = encrypt(p, key)
-      f.puts e_phrase
+      f.write p + "\n"
     end
     f.close
+    encrypt(o_file, key)
   end
 
   ##
@@ -65,10 +64,10 @@ module OutputFile
   def self.open_ofile(file)
     print 'Enter a key for decryption => '
     key = gets.chomp
-    File.foreach(file) do |l|
-      e_phrase = l.chomp
-      phrase = decrypt(e_phrase, key)
-      puts "Decrypted passphrase: '#{phrase}'"
+    decrypt(file, key)
+    File.foreach("decrypted_#{file}") do |l|
+      puts "Decrypted passphrase: '#{l.chomp}'"
     end
+    File.delete("decrypted_#{file}")
   end
 end

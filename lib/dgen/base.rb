@@ -1,8 +1,5 @@
 ##
-# Base Script
-#
-# This script handles the behavior of the program based on the options
-# provided by the user.
+# dgen
 #
 # Copyright 2015 Richard Davis GPL v3
 require 'optparse'
@@ -10,7 +7,7 @@ require 'dgen/passgen.rb'
 require 'dgen/outputfile.rb'
 
 trap('INT') do
-  puts 'Terminating...'
+  puts "\nTerminating..."
   exit
 end
 
@@ -71,7 +68,7 @@ if options[:single]
   end
 elsif options[:batch]
   batch_pass = PassGen.batch(n_words, p_length)
-  puts 'Save the passphrases in an encrypted file? (Y/N) => '
+  print 'Save the passphrases in an encrypted file? (Y/N) => '
   save = gets.chomp
   exit unless save.upcase == 'Y'
   begin
