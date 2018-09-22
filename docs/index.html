@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>dgen Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./README_md.html">README</a>
+  
+  </ul>
+</div>
+
+    <div id="classindex-section" class="nav-section">
+  <h3>Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Dgen.html">Dgen</a>
+  
+    <li><a href="./Dgen/Diceware.html">Dgen::Diceware</a>
+  
+    <li><a href="./Dgen/OutputFile.html">Dgen::OutputFile</a>
+  
+    <li><a href="./Dgen/PassGen.html">Dgen::PassGen</a>
+  
+    <li><a href="./DicewareTest.html">DicewareTest</a>
+  
+    <li><a href="./PassGenTest.html">PassGenTest</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main">
+
+<!---
+Copyright 2015-2018 Richard Davis
+
+This file is part of dgen.
+
+dgen is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+dgen is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with dgen.  If not, see <http://www.gnu.org/licenses/>.
+--->
+<h1 id="label-dgen">dgen<span><a href="#label-dgen">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<h2 id="label-Table+of+Contents">Table of Contents<span><a href="#label-Table+of+Contents">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p>About</p>
+</li><li>
+<p>Getting started</p>
+</li><li>
+<p>Installation</p>
+</li><li>
+<p>Usage</p>
+</li><li>
+<p>Contributing</p>
+</li><li>
+<p>Code of Conduct</p>
+</li><li>
+<p>Code Style</p>
+</li><li>
+<p>Documentation</p>
+</li><li>
+<p>Testing</p>
+</li><li>
+<p>TODO</p>
+</li><li>
+<p>Credits</p>
+</li></ul>
+
+<h2 id="label-About">About<span><a href="#label-About">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Using the diceware method to generate passwords results in stronger
+passwords that are more resistant to cracking. This project implements the
+diceware method to create passphrases that are strong and easy to remember.</p>
+
+<p>Check out this XKCD comic to get a better idea: <a
+href="https://xkcd.com/936">xkcd.com/936</a>/</p>
+
+<p>Read the official diceware page for a more detailed explanation of diceware
+and how to use the method for generating passphrases securely: <a
+href="http://world.std.com/~reinhold/diceware.html">world.std.com/~reinhold/diceware.html</a></p>
+
+<p>This program requires only minimal user interaction. You specify the number
+of words that you want in the passphrase and the minimum length of the
+passphrase, and the program will generate a secure diceware passphrase that
+meets those requirements. It will display this passphrase to you in the
+terminal and allow you to save it to an encrypted output file if you so
+choose. Additionally, it will decrypt previously saved output file and
+display the passphrases that are contained.</p>
+
+<h2 id="label-Getting+Started">Getting Started<span><a href="#label-Getting+Started">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>To install from rubygems, execute:</p>
+
+<p><code>gem install dgen</code></p>
+
+<p>Alternatively, you could build from source:</p>
+
+<pre>git clone https://github.com/d3d1rty/dgen.git
+cd dgen
+gem build dgen.gemspec
+gem install ./dgen-0.5.0.gem</pre>
+
+<h3 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p>Execute command <code>dgen -h</code> for options</p>
+</li><li>
+<p>Execute command <code>dgen -s</code> to generate a single passphrase</p>
+</li><li>
+<p>Execute command <code>dgen -b</code> to generate multiple passphrases</p>
+</li><li>
+<p>Enter the number of words to use in the passphrase(s)</p>
+</li><li>
+<p>The recommended minimum is 6 words</p>
+</li><li>
+<p>Enter the minimum number of characters to use in the passphrase</p>
+</li><li>
+<p>The recommended minimum is 17 characters</p>
+</li><li>
+<p>The program will display the generated passphrase at which point…</p>
+</li><li>
+<p>You can:</p>
+<ul><li>
+<p>Write it down once</p>
+</li><li>
+<p>Commit it to memory</p>
+</li><li>
+<p>Destroy the paper copy</p>
+</li></ul>
+</li><li>
+<p>Or (recommended):</p>
+<ul><li>
+<p>Allow the program to save the generated passphrases to an encrypted file.</p>
+</li></ul>
+</li><li>
+<p>To open a previously saved output file, execute command <code>dgen -o
+FILENAME</code></p>
+<ul><li>
+<p>Provide the key for encryption</p>
+</li><li>
+<p>The program will read the file, decrypt the passphrases, and display them
+to the screen. The contents of the file will remain encrypted.</p>
+</li></ul>
+</li></ul>
+
+<h2 id="label-Contributing">Contributing<span><a href="#label-Contributing">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<h3 id="label-Code+of+Conduct">Code of Conduct<span><a href="#label-Code+of+Conduct">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>All contributions are welcome, but are merged at the discretion of the core
+contributor(s). Contributions to the project will be judged on their merits
+without respect to a contributor&#39;s publicly or privately held beliefs,
+opinions, ideology, nationality, ethnicity, or demographic. Most
+communications within the project should be limited to project planning,
+development, bugfixing, or other relevant topics; for off-topic
+discussions, contributors are expected to use good judgement and to avoid
+intentionally abusive behavior. Conflict should be resolved at the lowest
+level possible with minimal disruption to the project. Core contributor(s)
+reserve the right to request that a contributor alter their behavior,
+however, nothing in this code of conduct should be construed in such a
+manner that it infringes upon any contributor&#39;s freedom of expression.</p>
+
+<h3 id="label-Code+Style">Code Style<span><a href="#label-Code+Style">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>To keep a consistent code style, it is recommended to use <a
+href="https://github.com/bbatsov/rubocop">rubocop</a>. If you use
+<code>vim</code> and <a
+href="https://github.com/vim-syntastic/syntastic">syntastic</a>, you can
+use <code>rubocop</code> as a Ruby checker. To manually run
+<code>rubocop</code>, you can run the following commands:</p>
+
+<pre class="ruby"><span class="ruby-comment"># Run rubocop for the entire project</span>
+<span class="ruby-identifier">rubocop</span>
+<span class="ruby-comment"># Run rubocop for a specific file</span>
+<span class="ruby-identifier">rubocop</span> <span class="ruby-identifier">foo</span><span class="ruby-operator">/</span><span class="ruby-identifier">bar</span>.<span class="ruby-identifier">rb</span>
+</pre>
+
+<h3 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Comment any code contributions according to the existing conventions within
+the project. Reference the examples listed below:</p>
+
+<p>Example top-level comment:</p>
+
+<pre class="ruby"><span class="ruby-comment">##</span>
+<span class="ruby-comment"># = ClassNameGoesHere</span>
+<span class="ruby-comment"># Author::    Dick Davis (+/- individual contributors)</span>
+<span class="ruby-comment"># Copyright:: Copyright 2018 Dick Davis</span>
+<span class="ruby-comment"># License::   GNU Public License 3</span>
+<span class="ruby-comment">#</span>
+<span class="ruby-comment"># This is a class that is something and does something.</span>
+</pre>
+
+<p>Example method comment:</p>
+
+<pre class="ruby"><span class="ruby-comment">##</span>
+<span class="ruby-comment"># This is a method that does something</span>
+</pre>
+
+<p>Documentation should be regenerated prior to merging any branches into
+master. The latest <a
+href="https://d3d1rty.github.io/dgen/">documentation</a> auto-sources off
+the <code>docs/</code> folder on the master branch. For more information on
+RDoc, go <a href="https://rdoc.github.io/rdoc/index.html">here</a>.</p>
+
+<pre class="ruby"><span class="ruby-comment"># Run custom rake task to regenerate RDoc documentation</span>
+<span class="ruby-identifier">rake</span> <span class="ruby-identifier">rdoc</span>
+</pre>
+
+<h3 id="label-Testing">Testing<span><a href="#label-Testing">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Integration tests should be written for all classes and methods. The test
+suite can be run executed by rake task <code>rake test</code>.</p>
+
+<h2 id="label-TODO">TODO<span><a href="#label-TODO">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<ul><li>
+<p>Write tests for OutputFile module</p>
+</li><li>
+<p>Improve error handling</p>
+</li></ul>
+
+<h2 id="label-Dependencies">Dependencies<span><a href="#label-Dependencies">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Ruby 2.0 or higher</p>
+
+<h2 id="label-Credits">Credits<span><a href="#label-Credits">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Thanks to the Ruby community for the valuable learning resources.</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

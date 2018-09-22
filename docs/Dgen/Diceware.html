@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module Dgen::Diceware - dgen Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-find_word">::find_word</a>
+    
+    <li ><a href="#method-c-make_phrase">::make_phrase</a>
+    
+    <li ><a href="#method-c-roll_nums">::roll_nums</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Dgen::Diceware">
+  <h1 id="module-Dgen::Diceware" class="module">
+    module Dgen::Diceware
+  </h1>
+
+  <section class="description">
+    
+<h1 id="module-Dgen::Diceware-label-Diceware"><a href="Diceware.html">Diceware</a><span><a href="#module-Dgen::Diceware-label-Diceware">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<dl class="rdoc-list note-list"><dt>Author
+<dd>
+<p>Dick Davis</p>
+</dd><dt>Copyright
+<dd>
+<p>Copyright 2015-2018 Dick Davis</p>
+</dd><dt>License
+<dd>
+<p>GNU Public License 3</p>
+</dd></dl>
+
+<p>Methods to generate random numbers, select words from word list using those
+numbers, and combine words into a passphrase.</p>
+
+<p>The algorithm used to generate passwords is the <a
+href="Diceware.html">Diceware</a> method, developed by Arnold Reinhold.</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-find_word" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_word</span><span
+            class="method-args">(number, word_list)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Chooses words from the diceware word list for the passphrase.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find_word-source">
+            <pre><span class="ruby-comment"># File lib/dgen/diceware.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">find_word</span>(<span class="ruby-identifier">number</span>, <span class="ruby-identifier">word_list</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">foreach</span>(<span class="ruby-identifier">word_list</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">num</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span>, <span class="ruby-value">5</span>)
+    <span class="ruby-ivar">@word</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">6</span><span class="ruby-operator">..</span><span class="ruby-value">-2</span>)
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">num</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">number</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@word</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-make_phrase" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_phrase</span><span
+            class="method-args">(n_words, n_chars, word_list)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Generates and returns the passphrase.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="make_phrase-source">
+            <pre><span class="ruby-comment"># File lib/dgen/diceware.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">make_phrase</span>(<span class="ruby-identifier">n_words</span>, <span class="ruby-identifier">n_chars</span>, <span class="ruby-identifier">word_list</span>)
+  <span class="ruby-identifier">passphrase</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">words</span> = []
+    <span class="ruby-identifier">n_words</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">words</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">find_word</span>(<span class="ruby-identifier">roll_nums</span>, <span class="ruby-identifier">word_list</span>))
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">passphrase</span> = <span class="ruby-identifier">words</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39; &#39;</span>)
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">passphrase</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">n_chars</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">passphrase</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-roll_nums" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">roll_nums</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates an array of random numbers generated securely.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="roll_nums-source">
+            <pre><span class="ruby-comment"># File lib/dgen/diceware.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">roll_nums</span>
+  <span class="ruby-identifier">numbers</span> = []
+  <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">SecureRandom</span>.<span class="ruby-identifier">random_number</span>(<span class="ruby-value">6</span>) <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">num</span> = <span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;&#39;</span>)
+  <span class="ruby-identifier">num</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

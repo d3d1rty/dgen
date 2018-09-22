@@ -15,14 +15,36 @@
 # You should have received a copy of the GNU General Public License
 # along with dgen.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'dgen/base'
+require 'test/unit'
+require 'dgen/passgen'
 
 ##
-# = Dgen
+# = PassGenTest
 # Author::    Dick Davis
 # Copyright:: Copyright 2015-2018 Dick Davis
 # License::   GNU Public License 3
 #
-# The namespace for all Dgen components.
-module Dgen
+# Tests the Dgen::PassGen class.
+class PassGenTest < Test::Unit::TestCase
+  ##
+  # Instantiates a Dgen::PassGen instance for testing.
+  def setup
+    @generator = Dgen::PassGen.new(6, 17)
+  end
+
+  ##
+  # Tests generation of a single passphrase.
+  def test_single
+    assert_match(/\w||\s{17,}/, @generator.single)
+  end
+
+  ##
+  # Tests generation of multiple passphrases.
+  def test_batch
+    passphrases = @generator.batch(3)
+    assert_equal(3, passphrases.length)
+    assert_match(/\w||\s{17,}/, passphrases[0])
+    assert_match(/\w||\s{17,}/, passphrases[1])
+    assert_match(/\w||\s{17,}/, passphrases[2])
+  end
 end
