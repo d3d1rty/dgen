@@ -25,7 +25,6 @@ along with dgen.  If not, see <http://www.gnu.org/licenses/>.
   * Installation
   * Usage
 * Contributing
-  * Code of Conduct
   * Code Style
   * Documentation
   * Testing
@@ -76,20 +75,6 @@ gem install ./dgen-0.5.0.gem
     * The program will read the file, decrypt the passphrases, and display them to the screen. The contents of the file will remain encrypted.
 
 ## Contributing
-### Code of Conduct
-All contributions are welcome, but are merged at the discretion of the core
-contributor(s). Contributions to the project will be
-judged on their merits without respect to a contributor's publicly or
-privately held beliefs, opinions, ideology, nationality, ethnicity, or
-demographic. Most communications within the project should be limited to
-project planning, development, bugfixing, or other relevant topics; for
-off-topic discussions, contributors are expected to use good judgement
-and to avoid intentionally abusive behavior. Conflict should be resolved
-at the lowest level possible with minimal disruption to the project. Core
-contributor(s) reserve the right to request that a contributor alter their
-behavior, however, nothing in this code of conduct should be construed in
-such a manner that it infringes upon any contributor's freedom of expression.
-
 ### Code Style
 To keep a consistent code style, it is recommended to use
 [rubocop](https://github.com/bbatsov/rubocop). If you use `vim` and
